@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setSelectedCategory } from "@/store/productsSlice";
 import { fetchCategories } from "@/store/categoriesSlice"; // Ensure this is imported correctly
+import { useRouter } from "next/navigation";
 
 const ProductRange = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { categories, isLoading, error } = useSelector(
     (state) => state.categories
@@ -30,6 +32,9 @@ const ProductRange = () => {
       (category) => category._id === categoryId
     );
     dispatch(setSelectedCategory(selectedCategoryObj));
+
+    router.push(`/category/${categoryId}`);
+
   };
 
 

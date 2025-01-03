@@ -23,8 +23,8 @@ export function BreadCrum() {
   );
 
   return (
-    <div className=" flex flex-row z-40 w-full bg-[#F7F7F7] text-2xl md:py-10 px-8 md:px-40 my-8 font-montserrat">
-      <Breadcrumb className="flex items-center py-4 md:py-6 ">
+    <div className="flex flex-row z-40 w-full bg-[#F7F7F7] text-2xl md:py-10 px-8 md:px-40 my-8 font-montserrat">
+      <Breadcrumb className="flex items-center py-4 md:py-6">
         <BreadcrumbList className="text-2xl md:text-3xl font-[200]">
           {pathname === "/" ? (
             <>
@@ -36,7 +36,7 @@ export function BreadCrum() {
               </BreadcrumbItem>
             </>
           ) : (
-            pathParts.map((part, index) => {
+            pathParts.slice(0, 1).map((part, index) => { // Only show the first part (category)
               const href = `/${pathParts.slice(0, index + 1).join("/")}`;
               return (
                 <BreadcrumbItem key={href}>
@@ -48,22 +48,22 @@ export function BreadCrum() {
         </BreadcrumbList>
       </Breadcrumb>
 
-
       <div className="flex flex-col ml-auto">
-        <h1 className="text-2xl md:text-xl font-[500] text-[#3ab4df]">COMPLETE TILING, BATHING & LIGHTING SOLUTIONS COMPANY</h1>
-        <div className="flex flex-row space-x-4 py-4 items-center ">
+        <h1 className="text-2xl md:text-xl font-[500] text-[#3ab4df]">
+          COMPLETE TILING, BATHING & LIGHTING SOLUTIONS COMPANY
+        </h1>
+        <div className="flex flex-row space-x-4 py-4 items-center">
           {categories.map((category) => (
             <div key={category.category_name} className="flex flex-row items-center">
-                    <Image
-                      width={150}
-                      height={150}
-                      src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${category.category_icon}`}
-                      alt={category.category_name}
-                      className="h-fit min-w-full max-w-12 sm:w-20 mb-auto"
-                    />
+              <Image
+                width={150}
+                height={150}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${category.category_icon}`}
+                alt={category.category_name}
+                className="h-fit min-w-full max-w-12 sm:w-20 mb-auto"
+              />
             </div>
           ))}
-          
         </div>
       </div>
     </div>

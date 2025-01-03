@@ -21,6 +21,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
 
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -34,7 +35,7 @@ export default function Navbar() {
   const handleCategoryChange = (category) => {
     if (category) {
       dispatch(setSelectedCategory(category)); // Correct way to dispatch an action
-      router.push("/products");
+      router.push(`/category/${category._id}`);
     }
   };
 
@@ -72,7 +73,13 @@ export default function Navbar() {
   };
 
   const isActive = (path) =>
-    pathname === path ? "text-sky-500" : "text-gray-400";
+    (pathname === path || (path === '/' && pathname === '/')) ? "text-sky-500" : "text-gray-400";
+  
+  const isActiveP = (path) =>
+    (pathname === '/' && path === '/') || pathname?.startsWith(path)
+      ? "text-sky-500"
+      : "text-gray-400";
+  
 
   return (
     <header className="sticky font-montserrat top-0 z-50 text-gray-600 body-font bg-white">
@@ -160,9 +167,9 @@ export default function Navbar() {
             onMouseLeave={() => setIsProductsHovered(false)}
           >
             <Link
-              href="/products"
-              className={`p-2 m-2 whitespace-nowrap hover:text-sky-500 flex items-center ${isActive(
-                "/products"
+              href={`/category/${categories[0]?._id}`}
+              className={`p-2 m-2 whitespace-nowrap hover:text-sky-500 flex items-center ${isActiveP(
+                "/category"
               )}`}
             >
               PRODUCTS

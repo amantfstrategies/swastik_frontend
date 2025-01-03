@@ -1,33 +1,15 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleProduct } from "@/store/productsSlice";
 import Image from "next/image";
+import  store  from "@/store/store";
+import { fetchSingleProduct } from "@/store/productsSlice";
 
-const ProductPage = ({ params }) => {
-  const dispatch = useDispatch();
-  const currentProduct = useSelector((state) => state.products.currentProduct);
-  const [productId, setProductId] = useState(null);
+async function fetchData(productid) {
+  await store.dispatch(fetchSingleProduct(productid));
+  const state = store.getState();
+  return state.products.currentProduct;
+}
 
-  // Unwrap params using React.use()
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      setProductId(resolvedParams.productid);
-    });
-  }, [params]);
-
-  // Fetch product data once productId is set
-  useEffect(() => {
-    if (productId) {
-      dispatch(fetchSingleProduct(productId));
-    }
-  }, [dispatch, productId]);
-
-  useEffect(() => {
-    if (currentProduct) {
-      // console.log("Current Product:", currentProduct);
-    }
-  }, [currentProduct]);
+export default async function ProductPage({ params }) {
+  const currentProduct = await fetchData(params.productid);
 
   if (!currentProduct) {
     return (
@@ -49,10 +31,8 @@ const ProductPage = ({ params }) => {
   } = currentProduct;
 
   return (
-    <div className="flex  p-6 md:px-40 font-montserrat">
-      {/* Product Images Grid */}
-      <div className="flex w-full  mb-6">
-        {/* Small Images */}
+    <div className="flex p-6 md:px-40 font-montserrat">
+      <div className="flex w-full mb-6">
         {product_images.slice(1, 4).map((image, index) => (
           <div key={index} className="flex w-full flex-col">
             <Image
@@ -64,7 +44,6 @@ const ProductPage = ({ params }) => {
             />
           </div>
         ))}
-        {/* Large Image */}
         {product_images[0] && (
           <div className="flex w-full">
             <Image
@@ -78,18 +57,12 @@ const ProductPage = ({ params }) => {
         )}
       </div>
 
-      {/* Product Details */}
       <div className="text-gray-600 w-full">
         <p className="text-[#358ED7] text-xs font-[500]">{category.category_name}</p>
-        <h1 className="text-2xl font-[500] text-gray-800 mb-6">
-          {product_name}
-        </h1>
-        <p className="mb-2">
-          {product_description}
-        </p>
+        <h1 className="text-2xl font-[500] text-gray-800 mb-6">{product_name}</h1>
+        <p className="mb-2">{product_description}</p>
         <p>
-          <span className="font-bold text-gray-600">Models no:</span>{" "}
-          {model_no}
+          <span className="font-bold text-gray-600">Model no:</span> {model_no}
         </p>
         <p className="mb-2">
           <span className="font-bold text-gray-600">Colors Available:</span>{" "}
@@ -104,6 +77,4 @@ const ProductPage = ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}

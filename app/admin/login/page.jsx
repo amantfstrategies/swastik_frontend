@@ -30,7 +30,7 @@ export default function AdminLogin() {
       const { token, userDetails } = response.data;
 
 
-      // Redirect to the admin dashboard
+      // Redirect to the admin shboard
       router.push('/admin');
     } catch (error) {
       // console.log("error:", error)
