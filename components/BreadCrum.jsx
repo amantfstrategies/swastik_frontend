@@ -36,12 +36,11 @@ export function BreadCrum() {
               </BreadcrumbItem>
             </>
           ) : (
-            pathParts.slice(0, 1).map((part, index) => { // Only show the first part (category)
+            pathParts.slice(0, 1).map((part, index) => {
+              // Only show the first part (category)
               const href = `/${pathParts.slice(0, index + 1).join("/")}`;
               return (
-                <BreadcrumbItem key={href}>
-                  <BreadcrumbLink href={href}>{capitalize(part)}</BreadcrumbLink>
-                </BreadcrumbItem>
+                <BreadcrumbLink key={href} href={href}>{capitalize(part)}</BreadcrumbLink>
               );
             })
           )}
@@ -54,7 +53,10 @@ export function BreadCrum() {
         </h1>
         <div className="flex flex-row space-x-4 py-4 items-center">
           {categories.map((category) => (
-            <div key={category.category_name} className="flex flex-row items-center">
+            <div
+              key={category.category_name}
+              className="flex flex-row items-center"
+            >
               <Image
                 width={150}
                 height={150}

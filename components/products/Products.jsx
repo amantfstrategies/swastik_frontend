@@ -49,11 +49,12 @@ export default function Products({
           </p>
         ) : (
           products.map((product) => (
-            <Link
-              href={`/products/${product._id}`}
+            <div
+              // href={`/products/${product._id}`}
               key={product._id}
               className="flex flex-col transition-transform transform hover:scale-105"
             >
+              <Link href={`/products/${product._id}`}>
               <Image
                 src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${product.product_images[0]}`}
                 alt={product.product_name}
@@ -67,7 +68,18 @@ export default function Products({
               <p className="text-gray-500 text-center text-sm py-2 font-[400]">
                 {product.product_description}
               </p>
-            </Link>
+              </Link>
+
+
+              <div className="text-[#3AB4DF] flex flex-col space-y-4 my-4 mt-auto text-md text-center  font-[600]">
+                <Link href={`/products/${product._id}`}>
+                  <p className="underline">Enquire Now</p>
+                </Link>
+                <Link className="underline" href={`/products/${product._id}`}>
+                  <p>Know More</p>
+                </Link>
+              </div>
+            </div>
           ))
         )}
       </div>
@@ -76,7 +88,9 @@ export default function Products({
       <div className="flex justify-center py-8 items-center md:space-x-4 mt-auto">
         {currentPage > 1 && (
           <Link
-            href={`/products?page=${currentPage - 1}&category=${selectedCategoryId || ""}`}
+            href={`/products?page=${currentPage - 1}&category=${
+              selectedCategoryId || ""
+            }`}
             className="px-4 py-2 text-gray-500 border border-gray-500"
           >
             Previous
@@ -87,7 +101,9 @@ export default function Products({
         </span>
         {currentPage < totalPages && (
           <Link
-            href={`/products?page=${currentPage + 1}&category=${selectedCategoryId || ""}`}
+            href={`/products?page=${currentPage + 1}&category=${
+              selectedCategoryId || ""
+            }`}
             className="px-4 py-2 text-gray-500 border border-gray-500"
           >
             Next

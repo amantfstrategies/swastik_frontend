@@ -8,6 +8,35 @@ async function fetchData(productid) {
   return state.products.currentProduct;
 }
 
+export async function generateMetadata({ params }, parent) {
+  const currentProduct = await fetchData(params.productid);
+
+  if (!currentProduct) {
+    return {
+      title: "Product Not Found",
+      description: "The product you are looking for does not exist.",
+    };
+  }
+
+  const { product_name, product_description, product_images } = currentProduct;
+  const previousImages = (await parent)?.openGraph?.images || [];
+
+  return {
+    title: `${product_name}`, 
+    description: product_description,
+    openGraph: {
+      title: `${product_name}`,
+      description: product_description,
+      images: [
+        `${process.env.NEXT_PUBLIC_IMAGE_URL}/${product_images[0]}`,
+        ...previousImages,
+      ],
+    },
+  };
+}
+
+
+
 export default async function ProductPage({ params }) {
   const currentProduct = await fetchData(params.productid);
 
