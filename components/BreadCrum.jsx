@@ -48,7 +48,7 @@ export function BreadCrum() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex flex-col ml-auto">
+      <div className="hidden md:flex flex-col ml-auto">
         <h1 className="text-2xl md:text-xl font-[500] text-[#3ab4df]">
           COMPLETE TILING, BATHING & LIGHTING SOLUTIONS COMPANY
         </h1>

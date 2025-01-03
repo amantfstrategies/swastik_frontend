@@ -1,9 +1,8 @@
 import { BreadCrum } from "@/components/BreadCrum";
 import YearsComplete from "@/components/YearsComplete";
 import Image from "next/image";
-import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <BreadCrum />
@@ -96,4 +95,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

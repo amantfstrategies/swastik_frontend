@@ -1,9 +1,7 @@
-"use client";
 import { BreadCrum } from "@/components/BreadCrum";
 import OurBrands from "@/components/OurBrands";
 import YearsComplete from "@/components/YearsComplete";
 import Image from "next/image";
-import React from "react";
 
 const Page = () => {
   return (
