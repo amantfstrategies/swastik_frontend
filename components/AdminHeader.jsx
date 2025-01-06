@@ -8,7 +8,7 @@ const AdminHeader = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/api/auth/logout', {}, { withCredentials: true });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {}, { withCredentials: true });
       router.push('/admin');
     } catch (error) {
       console.error('Logout error:', error);

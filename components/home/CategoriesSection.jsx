@@ -4,36 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CategoriesSection = ({ categories }) => {
-  if (!categories || categories.length === 0) {
-    return <div>No categories available</div>;
-  }
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleItems, setVisibleItems] = useState(1); // Default to 1 item on mobile
+  const [visibleItems, setVisibleItems] = useState(1); 
+
 
   useEffect(() => {
-    // Update visibleItems based on screen size (1 for mobile, 2 for larger screens)
     const updateVisibleItems = () => {
-      setVisibleItems(window.innerWidth >= 640 ? 2 : 1); // sm breakpoint for larger screens
+      setVisibleItems(window.innerWidth >= 640 ? 2 : 1); 
     };
 
-    // Initial check
     updateVisibleItems();
 
-    // Update on window resize
     window.addEventListener("resize", updateVisibleItems);
 
-    // Slide interval
     const slideInterval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % (categories.length - (visibleItems - 1)));
     }, 3000);
 
-    // Cleanup
     return () => {
       clearInterval(slideInterval);
       window.removeEventListener("resize", updateVisibleItems);
     };
   }, [categories.length, visibleItems]);
+
+
+
+  if (!categories || categories.length === 0) {
+    return <div>No categories available</div>;
+  }
 
   return (
     <div className="w-full overflow-hidden relative font-montserrat">
@@ -46,7 +44,7 @@ const CategoriesSection = ({ categories }) => {
         {categories.map((category) => (
           <div
             key={category._id}
-            className="flex-none w-full sm:w-1/2 sm:p-8" // 100% width for mobile, 50% for sm and larger screens
+            className="flex-none w-full sm:w-1/2 sm:p-8" 
           >
             <div className="flex flex-col w-full items-center text-center">
               <div className="flex flex-row w-full justify-between px-4 items-center">

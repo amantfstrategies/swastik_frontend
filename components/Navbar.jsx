@@ -21,7 +21,6 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
 
-
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -30,7 +29,7 @@ export default function Navbar() {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-  }, [pathname]);
+  }, [pathname, isMenuOpen]);
 
   const handleCategoryChange = (category) => {
     if (category) {
@@ -73,13 +72,14 @@ export default function Navbar() {
   };
 
   const isActive = (path) =>
-    (pathname === path || (path === '/' && pathname === '/')) ? "text-sky-500" : "text-gray-400";
-  
-  const isActiveP = (path) =>
-    (pathname === '/' && path === '/') || pathname?.startsWith(path)
+    pathname === path || (path === "/" && pathname === "/")
       ? "text-sky-500"
       : "text-gray-400";
-  
+
+  const isActiveP = (path) =>
+    (pathname === "/" && path === "/") || pathname?.startsWith(path)
+      ? "text-sky-500"
+      : "text-gray-400";
 
   return (
     <header className="sticky font-montserrat top-0 z-50 text-gray-600 body-font bg-white">
@@ -122,7 +122,6 @@ export default function Navbar() {
                 isSearchVisible ? "w-full" : "w-fit"
               } md:w-fit flex-row items-center border px-4 border-[#CCCCCC] text-[#757575] rounded-full focus:ring-2 group focus:ring-sky-500`}
             >
-              
               <input
                 type="text"
                 onChange={(e) => setSearchTerm(e.target.value)}

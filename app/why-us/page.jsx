@@ -80,8 +80,8 @@ const Page = () => {
               Discover the Swastik Difference
             </h2>
             <p className="font-[400] text-[#6a6d6d]">
-              At Swastik Tiles and Bath, our legacy of over 25 years isn't just
-              about selling products; it's about the art and science of turning
+              At Swastik Tiles and Bath, our legacy of over 25 years isn&apos;t just
+              about selling products; it&apos;s about the art and science of turning
               living spaces into homes. Our seasoned experts bring unparalleled
               expertise to every project, ensuring your home reflects not just
               your style, but your story. From innovative designs to timeless
@@ -97,10 +97,10 @@ const Page = () => {
               Customer-Centric Excellence: Your Satisfaction, Our Commitment
             </h1>
             <h2 className="text-[#3ab4df] font-[500] text-lg md:text-xl">
-              More Than a Store, We're Your Home Partner
+              More Than a Store, We&apos;re Your Home Partner
             </h2>
             <p className="font-[400] text-[#6a6d6d]">
-              Our commitment goes beyond transactions—it's about crafting
+              Our commitment goes beyond transactions—it&apos;s about crafting
               relationships and enhancing lifestyles. Swastik Tiles and Bath is
               driven by a mission to achieve 100% customer satisfaction.
               Experience a shopping journey where trust meets luxury, and your
@@ -128,7 +128,7 @@ const Page = () => {
           />
           <div className="w-full md:w-1/2 flex flex-col space-y-4">
             <h1 className="font-[600] text-2xl md:text-3xl text-[#6a6d6d]">
-              Swastik's Vision: Redefining Home Elegance
+              Swastik&apos;s Vision: Redefining Home Elegance
             </h1>
             <h2 className="text-[#3ab4df] font-[500] text-lg md:text-xl">
               Setting New Standards in Luxury Living
@@ -138,8 +138,8 @@ const Page = () => {
               Swastik Tiles and Bath is to be the epitome of trustworthiness,
               setting new standards for a growth-oriented and luxurious shopping
               journey. Explore a curated selection of residential, commercial,
-              plumbing, and ceramic products designed to redefine your home's
-              elegance. Discover why Swastik is more than a brand; it's a vision
+              plumbing, and ceramic products designed to redefine your home&apos;s
+              elegance. Discover why Swastik is more than a brand; it&apos;s a vision
               realized in every detail of your home.
             </p>
           </div>

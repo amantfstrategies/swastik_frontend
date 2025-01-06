@@ -9,6 +9,7 @@ import {
   deleteManySlides,
 } from "../../../store/slidesSlice";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SlidesPage = () => {
   const dispatch = useDispatch();
@@ -139,7 +140,9 @@ const SlidesPage = () => {
               <td className="border px-4 py-2">{slide.grey_line}</td>
               <td className="border px-4 py-2">
                 {slide.slide_images.map((image, index) => (
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     key={index}
                     src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${image}`}
                     alt="Slide"
@@ -196,7 +199,9 @@ const SlidesPage = () => {
                 (preview, index) => (
                   console.log("preview:", preview),
                   (
-                    <img
+                    <Image
+                      width={100}
+                      height={100}
                       key={index}
                       src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${preview}`}
                       alt="Preview"

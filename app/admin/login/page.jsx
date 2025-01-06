@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function AdminLogin() {
@@ -11,16 +11,17 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Track loading state
 
+
+
   const handleLogin = async () => {
+    
     if (!email || !password) {
       setError('Please enter both email and password');
       return;
     }
-
     setLoading(true); 
-
     try {
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
         email,
         password,
       }, {

@@ -19,9 +19,11 @@ export default function LoginPage() {
     };
 
     const handleSubmit = async (e) => {
+        console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
         e.preventDefault();
         try {
-            const response = await fetch('/api/login', {
+            
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

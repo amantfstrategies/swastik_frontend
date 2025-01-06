@@ -4,12 +4,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Slides = ({ slides }) => {
-  if (!slides || slides.length === 0) {
-    return <div>No slides available</div>;
-  }
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const [fade, setFade] = useState(true); // To control fade-in/fade-out
+
+
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -25,6 +23,10 @@ const Slides = ({ slides }) => {
 
   const { slide_images, grey_line, blue_line, link } = slides[currentSlide];
 
+  if (!slides || slides.length === 0) {
+    return <div>No slides available</div>;
+  }
+  
   return (
     <div className="flex flex-col py-20 font-montserrat justify-center items-center h-fit min-h-screen md:ml-20 mx-4 md:mr-40">
       <div

@@ -123,7 +123,7 @@ const Page = () => {
           <h1 className="font-[500] text-2xl text-[#3ab4df]">Our Mission</h1>
           <h2 className="font-[400] text-2xl text-[#6a6d6d]">Crafting Relationships & Enhancing Lifestyles</h2>
           <p className="font-[300] text-base text-[#6a6d6d] text-justify">
-          Our mission goes beyond mere transac- tions; it's about crafting enduring rela- tionships and enhancing the very fabric of your lifestyle. With a commitment to providing the best products, Swastik strives to be the number one store that achieves 100% customer satisfaction.
+          Our mission goes beyond mere transac- tions; it&apos;s about crafting enduring rela- tionships and enhancing the very fabric of your lifestyle. With a commitment to providing the best products, Swastik strives to be the number one store that achieves 100% customer satisfaction.
           </p>
         </div>
         <div className="flex flex-col space-y-4 w-full">
@@ -131,7 +131,7 @@ const Page = () => {
           <h2 className="font-[400] text-2xl text-[#6a6d6d]">Your First and Only
           Choice</h2>
           <p className="font-[300] text-base text-[#6a6d6d] text-justify">
-          solutions, products, and services con- verge seamlessly. That's our goal—to make Swastik your first and only choice for all your home needs.
+          solutions, products, and services con- verge seamlessly. That&apos;s our goal—to make Swastik your first and only choice for all your home needs.
           </p>
         </div>
       </div>
