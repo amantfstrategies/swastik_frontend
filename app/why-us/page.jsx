@@ -2,6 +2,62 @@ import { BreadCrum } from "@/components/BreadCrum";
 import YearsComplete from "@/components/YearsComplete";
 import Image from "next/image";
 
+
+
+export async function generateMetadata() {
+  return {
+    title: "Swastik Tile and Bath: Excellence in Tiles, Bathware, and More",
+    description:
+      "Swastik Tile and Bath offers premium tiles & bathroom solutions. Stylish, durable products to elevate your space. Visit for quality, variety, and expert advice",
+    keywords: [
+      "Tile Showroom ",
+      "Tile and Bath Product Suppliers",
+      "Best Tile Store",
+      "Luxury Home Bath Fittings",
+      "Bathroom lighting fixtures",
+      "Bathroom faucets",
+      "Plumbing pipes and fittings",
+      "Faucet",
+      "Bathroom Products & Suppliers",
+      "Luxury Bathroom Accessories",
+      "Finished Plumbing",
+      "Hot Water Solutions",
+      "Luxury Tiles ",
+      "Lighting",
+      "Wellness",
+      "Pressure Pumps",
+      "Kitchen Sinks",
+      "Switsche",
+      "Bath Accessories",
+      "Bathware Shop",
+      "Bathware Solutions",
+      "Bathroom Accessories Set",
+      
+    ],
+    openGraph: {
+      title: "Swastik Tile and Bath: Excellence in Tiles, Bathware, and More",
+      description:
+        "Swastik Tile and Bath offers premium tiles & bathroom solutions. Stylish, durable products to elevate your space. Visit for quality, variety, and expert advice",
+      url: "https://swastiktileandbath.com/", // Replace with your actual URL
+      images: [
+        {
+          url: "/bath.png",
+          width: 800,
+          height: 600,
+          alt: "Swastik Tiles and Bath",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Swastik Tile and Bath: Excellence in Tiles, Bathware, and More",
+      description:
+        "Swastik Tile and Bath offers premium tiles & bathroom solutions. Stylish, durable products to elevate your space. Visit for quality, variety, and expert advice",
+      images: ["/bath.png"],
+    },
+  };
+}
+
 const Page = () => {
   return (
     <div>
