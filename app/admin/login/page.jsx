@@ -28,7 +28,8 @@ export default function AdminLogin() {
         withCredentials: true, 
       });
 
-      const { token, userDetails } = response.data;
+
+      console.log("response:", response)
 
 
       // Redirect to the admin shboard
