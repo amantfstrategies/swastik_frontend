@@ -38,7 +38,7 @@ const slidesSlice = createSlice({
     },
     deleteSlidesFromState(state, action) {
       state.slides = state.slides.filter(
-        (slide) => !action.payload.includes(slide.id)
+        (slide) => !action.payload.includes(slide._id)
       );
     },
   },
@@ -59,6 +59,7 @@ export const {
 // Fetch slides from API
 const api = process.env.NEXT_PUBLIC_API_URL;
 export const fetchSlides = () => async (dispatch) => {
+  
   dispatch(fetchSlidesStart());
   try {
     const response = await axios.get(`${api}/api/slides`);
@@ -87,6 +88,8 @@ export const deleteSlide = (id) => async (dispatch) => {
     console.error('Error deleting slide:', error);
   }
 };
+
+
 
 // Update slide
 export const editSlide = (data) => async (dispatch) => {

@@ -15,17 +15,18 @@ const SlidesPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { slides, isLoading, error } = useSelector((state) => state.slides);
+
   const [greyLine, setGreyLine] = useState("");
   const [blueLine, setBlueLine] = useState("");
   const [link, setLink] = useState("");
   const [selectedSlides, setSelectedSlides] = useState([]);
   const [editingSlideId, setEditingSlideId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
   const [slideImages, setSlideImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
   const fileInputRef = useRef(null);
-
-
 
   useEffect(() => {
     dispatch(fetchSlides());
@@ -67,10 +68,6 @@ const SlidesPage = () => {
     setImagePreview(previews);
   };
 
-  const handleDeleteSlide = (id) => {
-    dispatch(deleteSlide(id));
-  };
-
   const handleEditSlide = (slide) => {
     setEditingSlideId(slide._id);
     setGreyLine(slide.grey_line);
@@ -80,8 +77,25 @@ const SlidesPage = () => {
     setIsModalOpen(true);
   };
 
+  const confirmDeleteAction = (action) => {
+    setConfirmAction(() => action);
+    setIsConfirmModalOpen(true);
+  };
+
+  const executeConfirmAction = () => {
+    confirmAction();
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleDeleteSlide = (id) => {
+    confirmDeleteAction(() => dispatch(deleteSlide(id)));
+  };
+
   const handleDeleteMany = () => {
-    dispatch(deleteManySlides(selectedSlides));
+    confirmDeleteAction(() => {
+      dispatch(deleteManySlides(selectedSlides));
+      setSelectedSlides([]);
+    });
   };
 
   const handleSelectSlide = (id) => {
@@ -90,15 +104,12 @@ const SlidesPage = () => {
     );
   };
 
-
-    useEffect(() => {
-      const token = localStorage.getItem("authToken");
-  
-      if (!token) {
-        router.push("/admin/login");
-      }
-    }, []);
-  
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      router.push("/admin/login");
+    }
+  }, []);
 
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
   if (error)
@@ -120,7 +131,7 @@ const SlidesPage = () => {
           className={`px-4 py-2 rounded ${
             selectedSlides.length === 0
               ? "hidden cursor-not-allowed"
-              : "bg-sky-500  text-white"
+              : "bg-sky-500 text-white"
           }`}
         >
           Delete Selected ({selectedSlides.length})
@@ -168,13 +179,13 @@ const SlidesPage = () => {
                 <div className="flex justify-center space-x-2">
                   <button
                     onClick={() => handleEditSlide(slide)}
-                    className="px-2 py-1 text-sky-500 mr-2"
+                    className="px-2 py-1 text-sky-500"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDeleteSlide(slide._id)}
-                    className="px-2 py-1 text-sky-500 hover:bg-red-600"
+                    className="px-2 py-1 text-sky-500 hover:text-red-600"
                   >
                     Delete
                   </button>
@@ -207,21 +218,16 @@ const SlidesPage = () => {
               className="w-full px-4 py-2 mb-4 border rounded"
             />
             <div className="flex space-x-2 mb-4">
-              {imagePreview.map(
-                (preview, index) => (
-                  console.log("preview:", preview),
-                  (
-                    <Image
-                      width={100}
-                      height={100}
-                      key={index}
-                      src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${preview}`}
-                      alt="Preview"
-                      className="w-16 h-16 object-cover"
-                    />
-                  )
-                )
-              )}
+              {imagePreview.map((preview, index) => (
+                <Image
+                  width={100}
+                  height={100}
+                  key={index}
+                  src={preview}
+                  alt="Preview"
+                  className="w-16 h-16 object-cover"
+                />
+              ))}
             </div>
             <input
               type="text"
@@ -249,6 +255,29 @@ const SlidesPage = () => {
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 {editingSlideId ? "Update" : "Add"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isConfirmModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Confirm Action</h2>
+            <p className="mb-4">Are you sure you want to proceed?</p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsConfirmModalOpen(false)}
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={executeConfirmAction}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Confirm
               </button>
             </div>
           </div>
