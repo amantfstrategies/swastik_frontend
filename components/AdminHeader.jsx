@@ -3,12 +3,14 @@ import React from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { removeAuthorizationHeader } from '@/utils/axiosInstance';
 const AdminHeader = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {}, { withCredentials: true });
+      removeAuthorizationHeader();
       router.push('/admin');
     } catch (error) {
       console.error('Logout error:', error);

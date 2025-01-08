@@ -1,3 +1,4 @@
+import axiosInstance from '@/utils/axiosInstance';
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -70,7 +71,7 @@ export const fetchSlides = () => async (dispatch) => {
 // Add new slide
 export const createSlide = (slide) => async (dispatch) => {
   try {
-    const response = await axios.post(`${api}/api/slides`, slide , { withCredentials: true });
+    const response = await axiosInstance.post(`${api}/api/slides`, slide , { withCredentials: true });
     dispatch(addSlide(response.data.slide));
   } catch (error) {
     console.error('Error adding slide:', error);
@@ -80,7 +81,7 @@ export const createSlide = (slide) => async (dispatch) => {
 // Delete single slide
 export const deleteSlide = (id) => async (dispatch) => {
   try {
-    await axios.delete(`${api}/api/slides/${id}`, { withCredentials: true });
+    await axiosInstance.delete(`${api}/api/slides/${id}`, { withCredentials: true });
     dispatch(removeSlide(id));
   } catch (error) {
     console.error('Error deleting slide:', error);
@@ -90,7 +91,7 @@ export const deleteSlide = (id) => async (dispatch) => {
 // Update slide
 export const editSlide = (data) => async (dispatch) => {
   try {
-    const response = await axios.put(`${api}/api/slides/${data.id}`, data.formData, { withCredentials: true });
+    const response = await axiosInstance.put(`${api}/api/slides/${data.id}`, data.formData, { withCredentials: true });
     dispatch(updateSlide(response.data.slide));
   } catch (error) {
     console.error('Error updating slide:', error);
@@ -100,7 +101,7 @@ export const editSlide = (data) => async (dispatch) => {
 // Delete many slides
 export const deleteManySlides = (ids) => async (dispatch) => {
   try {
-    await axios.post(`${api}/api/slides/delete-many`, { slideIds: ids } , { withCredentials: true });
+    await axiosInstance.post(`${api}/api/slides/delete-many`, { slideIds: ids } , { withCredentials: true });
     dispatch(deleteSlidesFromState(ids));
   } catch (error) {
     console.error('Error deleting slides', error);

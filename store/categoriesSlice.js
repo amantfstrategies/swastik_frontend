@@ -1,6 +1,7 @@
 // store/categoriesSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance'; 
 
 const initialState = {
   categories: [],
@@ -73,7 +74,7 @@ export const fetchCategories = () => async (dispatch) => {
 // Add new category
 export const createCategory = (category) => async (dispatch) => {
   try {
-    const response = await axios.post(`${api}/api/categories`, category, {
+    const response = await axiosInstance.post(`${api}/api/categories`, category, {
       withCredentials: true,
     });
     dispatch(addCategory(response.data.category));
@@ -85,18 +86,38 @@ export const createCategory = (category) => async (dispatch) => {
 // Delete single category
 export const deleteCategory = (id) => async (dispatch) => {
   try {
-    await axios.delete(`${api}/api/categories/${id}`, { withCredentials: true });
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      console.error("Authorization token is missing.");
+      return; 
+    }
+
+    console.log("Token from localStorage:", token);
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      withCredentials: true, 
+    };
+
+    console.log("Request Config for DELETE Category:", config);
+
+    await axiosInstance.delete(`${api}/api/categories/${id}`, config);
+    
     dispatch(removeCategory(id));
   } catch (error) {
     console.error('Error deleting category:', error);
   }
 };
 
+
 // Update category
 export const editCategory = (data) => async (dispatch) => {
   try {
     // console.log("id:",data.id)
-    const response = await axios.put(`${api}/api/categories/${data.id}`, data.formData, {
+    const response = await axiosInstance.put(`${api}/api/categories/${data.id}`, data.formData, {
       withCredentials: true,
     });
     
@@ -110,7 +131,7 @@ export const editCategory = (data) => async (dispatch) => {
 export const deleteManyCategories = (ids) => async (dispatch) => {
   try {
     // console.log("ids:", ids)
-    await axios.post(`${api}/api/categories/delete-many`, {categoryIds: ids }, { withCredentials: true });
+    await axiosInstance.post(`${api}/api/categories/delete-many`, {categoryIds: ids }, { withCredentials: true });
     dispatch(deleteCategoriesFromState(ids));
   } catch (error) {
     console.error('Error deleting categories', error);

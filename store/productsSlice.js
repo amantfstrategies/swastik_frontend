@@ -1,7 +1,7 @@
 // store/productsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import axiosInstance from '../utils/axiosInstance'; 
 const initialState = {
   products: [],
   selectedCategory: null,
@@ -162,7 +162,7 @@ export const fetchProducts = (page = 1, limit = 10, category = null) => async (d
 // Add new product
 export const createProduct = (product) => async (dispatch) => {
   try {
-    const response = await axios.post(`${api}/api/products`, product,  { withCredentials: true });
+    const response = await axiosInstance.post(`${api}/api/products`, product,  { withCredentials: true });
     // console.log("response:", response.data)
     dispatch(addProduct(response.data.product));
   } catch (error) {
@@ -173,7 +173,7 @@ export const createProduct = (product) => async (dispatch) => {
 // Delete single product
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    await axios.delete(`${api}/api/products/${id}`,   { withCredentials: true });
+    await axiosInstance.delete(`${api}/api/products/${id}`,   { withCredentials: true });
     dispatch(removeProduct(id));
   } catch (error) {
     console.error('Error deleting product:', error);
@@ -184,7 +184,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const editProduct = (data) => async (dispatch) => {
   try {
     
-    const response = await axios.put(`${api}/api/products/${data.id}`, data.formData, { withCredentials: true });
+    const response = await axiosInstance.put(`${api}/api/products/${data.id}`, data.formData, { withCredentials: true });
     dispatch(updateProduct(response.data.product));
   } catch (error) {
     console.error('Error updating product:', error);
@@ -194,7 +194,7 @@ export const editProduct = (data) => async (dispatch) => {
 // Delete many products
 export const deleteManyProducts = (ids) => async (dispatch) => {
   try {
-    await axios.post(`${api}/api/products/delete-many`, { productIds: ids }, { withCredentials: true });
+    await axiosInstance.post(`${api}/api/products/delete-many`, { productIds: ids }, { withCredentials: true });
     dispatch(deleteProductsFromState(ids));
   } catch (error) {
     console.error('Error deleting products:', error);

@@ -25,6 +25,8 @@ const SlidesPage = () => {
   const [imagePreview, setImagePreview] = useState([]);
   const fileInputRef = useRef(null);
 
+
+
   useEffect(() => {
     dispatch(fetchSlides());
   }, [dispatch]);
@@ -87,6 +89,16 @@ const SlidesPage = () => {
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
+
+
+    useEffect(() => {
+      const token = localStorage.getItem("authToken");
+  
+      if (!token) {
+        router.push("/admin/login");
+      }
+    }, []);
+  
 
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
   if (error)

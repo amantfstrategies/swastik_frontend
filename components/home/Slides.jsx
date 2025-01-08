@@ -21,11 +21,13 @@ const Slides = ({ slides }) => {
     return () => clearInterval(slideInterval);
   }, [slides.length]);
 
-  const { slide_images, grey_line, blue_line, link } = slides[currentSlide];
+
 
   if (!slides || slides.length === 0) {
     return <div>No slides available</div>;
   }
+
+  const { slide_images, grey_line, blue_line, link } = slides[currentSlide];
   
   return (
     <div className="flex flex-col py-20 font-montserrat justify-center items-center h-fit min-h-screen md:ml-20 mx-4 md:mr-40">

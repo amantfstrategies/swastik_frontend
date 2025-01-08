@@ -31,6 +31,14 @@ const CategoriesPage = () => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      router.push("/admin/login");
+    }
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
@@ -173,7 +181,9 @@ const CategoriesPage = () => {
                   width={50}
                 />
               </td>
-              <td className="border px-4 py-2">{category.category_description}</td>
+              <td className="border px-4 py-2">
+                {category.category_description}
+              </td>
               <td className="border px-4 py-2 text-center">
                 <div className="flex justify-center space-x-2">
                   <button

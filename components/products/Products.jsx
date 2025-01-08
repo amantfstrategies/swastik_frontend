@@ -43,7 +43,7 @@ export default function Products({
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 my-8 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-500 opacity-100">
-        {!products.length ? (
+        {!products?.length ? (
           <p className="text-center text-xl text-gray-500">
             No products available
           </p>

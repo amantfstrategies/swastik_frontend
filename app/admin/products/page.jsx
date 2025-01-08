@@ -10,6 +10,7 @@ import {
 } from "../../../store/productsSlice";
 import { fetchCategories } from "../../../store/categoriesSlice";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,20 @@ const ProductsPage = () => {
   const [confirmDeleteProductId, setConfirmDeleteProductId] = useState(null); // For single product delete confirmation
   const [confirmDeleteMany, setConfirmDeleteMany] = useState(false); // For multiple products delete confirmation
 
+  const router = useRouter();
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
   }, [dispatch]);
+
+    useEffect(() => {
+      const token = localStorage.getItem("authToken");
+  
+      if (!token) {
+        router.push("/admin/login");
+      }
+    }, []);
+  
 
   const handleSaveProduct = () => {
     const formData = new FormData();
