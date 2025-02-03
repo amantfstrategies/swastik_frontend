@@ -29,7 +29,7 @@ export default function Navbar() {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-  }, [pathname, isMenuOpen]);
+  }, [pathname]);
 
   const handleCategoryChange = (category) => {
     if (category) {
@@ -81,6 +81,10 @@ export default function Navbar() {
       ? "text-sky-500"
       : "text-gray-400";
 
+  useEffect(()=>{
+    console.log("is menu open:", isMenuOpen);
+  }, [isMenuOpen])
+
   return (
     <header className="sticky font-montserrat top-0 z-50 text-gray-600 body-font bg-white">
       <div className="mx-6 md:mx-40 flex justify-between items-center py-8">
@@ -108,7 +112,7 @@ export default function Navbar() {
             >
               <div
                 className="text-2xl cursor-pointer"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                // onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 &#9776;
               </div>
